@@ -1,4 +1,6 @@
 import React from "react";
+
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import {
   useFonts,
   Inter_400Regular,
@@ -33,7 +35,9 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <CarDetails />
+      <SafeAreaProvider>
+        <CarDetails />
+      </SafeAreaProvider>
     </ThemeProvider>
   );
 }
