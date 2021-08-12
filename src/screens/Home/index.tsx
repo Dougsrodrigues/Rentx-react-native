@@ -1,12 +1,42 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { StatusBar } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 
 import Logo from "../../assets/logo.svg";
+import { CarCard } from "../../components/CarCard";
 
-import { Container, Header, TotalCars, HeaderContent } from "./styles";
+import {
+  Container,
+  Header,
+  TotalCars,
+  HeaderContent,
+  CardList,
+} from "./styles";
 
 export const Home: React.FC = () => {
+  const carDataOne = {
+    branding: "Audi",
+    name: "RS 5 Coupé",
+    rent: {
+      period: "Ao dia",
+      price: "120",
+    },
+
+    thumbnail:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQW4ivWJhEM56Hb89IVzJXjei87nIgvCeOpYt2RomEiAW9wfPfOZVjU0s4hF9Fnx3XmIw8&usqp=CAU",
+  };
+
+  const cardListMemo = useMemo(
+    () => (
+      <CardList
+        keyExtractor={(item) => String(item)}
+        data={[1, 2, 3, 4, 5, 6, 7, 8]}
+        renderItem={({ item }) => <CarCard data={carDataOne} />}
+      />
+    ),
+    []
+  );
+
   return (
     <Container>
       <StatusBar
@@ -20,6 +50,8 @@ export const Home: React.FC = () => {
           <TotalCars>Total de 12 carros</TotalCars>
         </HeaderContent>
       </Header>
+
+      {cardListMemo}
     </Container>
   );
 };
