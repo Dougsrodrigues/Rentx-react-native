@@ -16,6 +16,7 @@ import {
   Price,
   About,
   Accessories,
+  Footer,
 } from "./styles";
 
 import SpeedSvg from "../../assets/speed.svg";
@@ -24,6 +25,7 @@ import ForceSvg from "../../assets/force.svg";
 import GasolineSvg from "../../assets/gasoline.svg";
 import ExchangeSvg from "../../assets/exchange.svg";
 import PeopleSvg from "../../assets/people.svg";
+import { Button } from "../../components/Button";
 
 export const CarDetails: React.FC = () => {
   return (
@@ -68,6 +70,9 @@ export const CarDetails: React.FC = () => {
           ipsum dolor sit amet
         </About>
       </Content>
+      <Footer>
+        <Button title="Confirmar" />
+      </Footer>
     </Container>
   );
 };
