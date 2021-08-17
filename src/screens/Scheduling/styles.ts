@@ -68,7 +68,9 @@ export const Content = styled.ScrollView.attrs({
   contentContainerStyle: { paddingBottom: 24 },
 
   showsVerticalScrollIndicator: false,
-})``;
+})`
+  flex: 1;
+`;
 
 export const Footer = styled(SafeAreaView)`
   padding: 24px;

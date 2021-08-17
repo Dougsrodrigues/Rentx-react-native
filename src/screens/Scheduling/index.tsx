@@ -17,6 +17,7 @@ import {
 } from "./styles";
 import { StatusBar } from "react-native";
 import { Button } from "../../components/Button";
+import { Calendar } from "../../components/Calendar";
 
 export const Scheduling: React.FC = () => {
   const theme = useTheme();
@@ -48,7 +49,9 @@ export const Scheduling: React.FC = () => {
         </RentalPeriod>
       </Header>
 
-      <Content></Content>
+      <Content>
+        <Calendar />
+      </Content>
       <Footer>
         <Button title="Confirmar" />
       </Footer>
