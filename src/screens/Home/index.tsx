@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import React, { useMemo } from "react";
 import { StatusBar } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
@@ -14,6 +15,8 @@ import {
 } from "./styles";
 
 export const Home: React.FC = () => {
+  const navigation = useNavigation();
+
   const carDataOne = {
     branding: "Audi",
     name: "RS 5 Coupé",
@@ -26,12 +29,18 @@ export const Home: React.FC = () => {
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQW4ivWJhEM56Hb89IVzJXjei87nIgvCeOpYt2RomEiAW9wfPfOZVjU0s4hF9Fnx3XmIw8&usqp=CAU",
   };
 
+  const handleCarDetails = () => {
+    navigation.navigate("CarDetails" as never);
+  };
+
   const cardListMemo = useMemo(
     () => (
       <CardList
         keyExtractor={(item) => String(item)}
         data={[1, 2, 3, 4, 5, 6, 7, 8]}
-        renderItem={({ item }) => <CarCard data={carDataOne} />}
+        renderItem={({ item }) => (
+          <CarCard data={carDataOne} onPress={handleCarDetails} />
+        )}
       />
     ),
     []

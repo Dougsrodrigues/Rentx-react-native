@@ -26,12 +26,23 @@ import GasolineSvg from "../../assets/gasoline.svg";
 import ExchangeSvg from "../../assets/exchange.svg";
 import PeopleSvg from "../../assets/people.svg";
 import { Button } from "../../components/Button";
+import { useNavigation } from "@react-navigation/native";
 
 export const CarDetails: React.FC = () => {
+  const navigation = useNavigation();
+
+  const handleConfirmRental = () => {
+    navigation.navigate("Scheduling" as never);
+  };
+
+  const handleBackNavigator = () => {
+    navigation.goBack();
+  };
+
   return (
     <Container>
       <Header>
-        <BackButton onPress={() => {}} />
+        <BackButton onPress={handleBackNavigator} />
       </Header>
 
       <CarImages>
@@ -71,7 +82,10 @@ export const CarDetails: React.FC = () => {
         </About>
       </Content>
       <Footer>
-        <Button title="Confirmar" />
+        <Button
+          title="Escolher período do aluguel"
+          onPress={handleConfirmRental}
+        />
       </Footer>
     </Container>
   );

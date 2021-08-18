@@ -39,14 +39,24 @@ import ExchangeSvg from "../../assets/exchange.svg";
 import PeopleSvg from "../../assets/people.svg";
 import { Button } from "../../components/Button";
 import { RFValue } from "react-native-responsive-fontsize";
+import { useNavigation } from "@react-navigation/native";
 
 export const SchedulingDetails: React.FC = () => {
   const theme = useTheme();
+  const navigation = useNavigation();
+
+  const handleConfirmRental = () => {
+    navigation.navigate("SchedulingComplete" as never);
+  };
+
+  const handleBackNavigator = () => {
+    navigation.goBack();
+  };
 
   return (
     <Container>
       <Header>
-        <BackButton onPress={() => {}} />
+        <BackButton onPress={handleBackNavigator} />
       </Header>
 
       <CarImages>
@@ -114,7 +124,11 @@ export const SchedulingDetails: React.FC = () => {
       </Content>
 
       <Footer>
-        <Button title="Confirmar" />
+        <Button
+          title="Alugar Agora"
+          onPress={handleConfirmRental}
+          color={theme.colors.success}
+        />
       </Footer>
     </Container>
   );

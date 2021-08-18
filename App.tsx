@@ -1,3 +1,5 @@
+import "react-native-gesture-handler";
+
 import React from "react";
 
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -17,7 +19,7 @@ import AppLoading from "expo-app-loading";
 import { ThemeProvider } from "styled-components";
 
 import theme from "./src/styles/theme";
-import { SchedulingComplete } from "./src/screens/SchedulingComplete";
+import { Routes } from "./src/routes";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -35,7 +37,7 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <SafeAreaProvider>
-        <SchedulingComplete />
+        <Routes />
       </SafeAreaProvider>
     </ThemeProvider>
   );

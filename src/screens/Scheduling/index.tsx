@@ -1,5 +1,8 @@
 import React from "react";
 import { useTheme } from "styled-components/native";
+import { useNavigation } from "@react-navigation/native";
+import { StatusBar } from "react-native";
+
 import { BackButton } from "../../components/BackButton";
 
 import ArrowSvg from "../../assets/arrow.svg";
@@ -15,12 +18,21 @@ import {
   Content,
   Footer,
 } from "./styles";
-import { StatusBar } from "react-native";
 import { Button } from "../../components/Button";
 import { Calendar } from "../../components/Calendar";
 
 export const Scheduling: React.FC = () => {
   const theme = useTheme();
+  const navigation = useNavigation();
+
+  const handleConfirmRental = () => {
+    navigation.navigate("SchedulingDetails" as never);
+  };
+
+  const handleBackNavigator = () => {
+    navigation.goBack();
+  };
+
   return (
     <Container>
       <Header>
@@ -29,7 +41,7 @@ export const Scheduling: React.FC = () => {
           translucent
           backgroundColor="transparent"
         />
-        <BackButton onPress={() => {}} color={theme.colors.shape} />
+        <BackButton onPress={handleBackNavigator} color={theme.colors.shape} />
         <Title>
           Escolha uma {"\n"} data de início e {"\n"} fim do aluguel
         </Title>
@@ -53,7 +65,7 @@ export const Scheduling: React.FC = () => {
         <Calendar />
       </Content>
       <Footer>
-        <Button title="Confirmar" />
+        <Button title="Confirmar" onPress={handleConfirmRental} />
       </Footer>
     </Container>
   );
