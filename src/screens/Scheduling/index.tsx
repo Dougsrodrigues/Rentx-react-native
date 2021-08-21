@@ -50,14 +50,10 @@ export const Scheduling: React.FC = () => {
   const navigation = useNavigationHooks();
 
   const handleConfirmRental = () => {
-    if (!rentalPeriod.startFormatted || !rentalPeriod.endFormatted) {
-      Alert.alert("Selecione o intervalo para alugar.");
-    } else {
-      navigation.navigate("SchedulingDetails", {
-        car,
-        dates: Object.keys(markedDates),
-      });
-    }
+    navigation.navigate("SchedulingDetails", {
+      car,
+      dates: Object.keys(markedDates),
+    });
   };
 
   const handleBackNavigator = () => {
@@ -126,7 +122,11 @@ export const Scheduling: React.FC = () => {
         />
       </Content>
       <Footer>
-        <Button title="Confirmar" onPress={handleConfirmRental} />
+        <Button
+          title="Confirmar"
+          onPress={handleConfirmRental}
+          enabled={!!rentalPeriod.startFormatted}
+        />
       </Footer>
     </Container>
   );

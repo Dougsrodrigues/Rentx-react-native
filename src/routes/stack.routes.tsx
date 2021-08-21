@@ -10,6 +10,7 @@ import { SchedulingComplete } from "../screens/SchedulingComplete";
 
 import { CarDTO } from "../dtos/CarDTO";
 import { RouteProp } from "@react-navigation/native";
+import { MyCars } from "../screens/MyCars";
 
 export type StackRoutesParams = {
   Home: undefined;
@@ -20,6 +21,7 @@ export type StackRoutesParams = {
     dates: string[];
   };
   SchedulingComplete: undefined;
+  MyCars: undefined;
 };
 
 const Screen = createNativeStackNavigator<StackRoutesParams>();
@@ -37,6 +39,7 @@ export function StackRoutes() {
       <Screen.Screen name="Scheduling" component={Scheduling} />
       <Screen.Screen name="SchedulingDetails" component={SchedulingDetails} />
       <Screen.Screen name="SchedulingComplete" component={SchedulingComplete} />
+      <Screen.Screen name="MyCars" component={MyCars} />
     </Screen.Navigator>
   );
 }

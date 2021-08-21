@@ -1,7 +1,7 @@
-import { useNavigation } from "@react-navigation/native";
 import React, { useLayoutEffect, useMemo, useState } from "react";
 import { StatusBar } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
+import { Ionicons } from "@expo/vector-icons";
 
 import Logo from "../../assets/logo.svg";
 import { api } from "../../services/api";
@@ -13,20 +13,39 @@ import {
   TotalCars,
   HeaderContent,
   CardList,
+  MyCarsButton,
 } from "./styles";
+
 import { CarDTO } from "../../dtos/CarDTO";
 import { Load } from "../../components/Load";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { StackRoutesParams } from "../../routes/stack.routes";
 import { useNavigationHooks } from "../../hooks/NavigationHooks";
+import { useTheme } from "styled-components/native";
 
 export const Home: React.FC = () => {
+  const theme = useTheme();
   const navigation = useNavigationHooks();
   const [cars, setCars] = useState<CarDTO[]>([]);
   const [loading, setLoading] = useState(true);
 
   const handleCarDetails = (car: CarDTO) =>
     navigation.navigate("CarDetails", { car });
+
+  const handleOpenMyCars = () => {
+    navigation.navigate("MyCars");
+  };
+
+  const cardListMemo = useMemo(
+    () => (
+      <CardList
+        keyExtractor={(item) => String(item.id)}
+        data={cars}
+        renderItem={({ item }) => (
+          <CarCard data={item} onPress={() => handleCarDetails(item)} />
+        )}
+      />
+    ),
+    [cars]
+  );
 
   useLayoutEffect(() => {
     const fetchCars = async () => {
@@ -43,19 +62,6 @@ export const Home: React.FC = () => {
     fetchCars();
   }, []);
 
-  const cardListMemo = useMemo(
-    () => (
-      <CardList
-        keyExtractor={(item) => String(item.id)}
-        data={cars}
-        renderItem={({ item }) => (
-          <CarCard data={item} onPress={() => handleCarDetails(item)} />
-        )}
-      />
-    ),
-    [cars]
-  );
-
   return (
     <Container>
       <StatusBar
@@ -71,6 +77,10 @@ export const Home: React.FC = () => {
       </Header>
 
       {loading ? <Load /> : cardListMemo}
+
+      <MyCarsButton onPress={handleOpenMyCars}>
+        <Ionicons name="ios-car-sport" size={32} color={theme.colors.shape} />
+      </MyCarsButton>
     </Container>
   );
 };

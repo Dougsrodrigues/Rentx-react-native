@@ -62,6 +62,7 @@ const useCar = () => {
 };
 
 export const SchedulingDetails: React.FC = () => {
+  const [loading, setLoading] = useState(false);
   const [rentalPeriod, setRentalPeriod] = useState<RentalPeriod>(
     {} as RentalPeriod
   );
@@ -72,23 +73,32 @@ export const SchedulingDetails: React.FC = () => {
   const rentTotal = Number(dates.length * car.rent.price);
 
   const handleConfirmRental = async () => {
+    setLoading(true);
     const schedulesByCar = await api.get<GetCarByIdPeriod>(
-      `/schedules/${car.id}`
+      `/schedules_bycars/${car.id}`
     );
 
     const unavailableDates = [...schedulesByCar.data.unavailable_dates];
 
-    api
-      .put(`/schedules/${car.id}`, {
+    Promise.all([
+      api.post("schedules_byuser", {
+        user_id: 1,
+        car,
+        startDate: rentalPeriod.start,
+        endDate: rentalPeriod.end,
+      }),
+      api.put(`/schedules_bycars/${car.id}`, {
         id: car.id,
         unavailable_dates: unavailableDates,
-      })
+      }),
+    ])
       .then(() => {
         navigation.navigate("SchedulingComplete" as never);
       })
       .catch(() => {
         Alert.alert("Não foi possível agendar.");
-      });
+      })
+      .finally(() => setLoading(false));
   };
 
   const handleBackNavigator = () => {
@@ -175,6 +185,7 @@ export const SchedulingDetails: React.FC = () => {
 
       <Footer>
         <Button
+          loading={loading}
           title="Alugar Agora"
           onPress={handleConfirmRental}
           color={theme.colors.success}

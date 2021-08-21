@@ -1,17 +1,32 @@
 import React from "react";
+import { useTheme } from "styled-components";
+import { Load } from "../Load";
 
 import { Container, Title } from "./styles";
 
 interface ButtonProps {
   title: string;
+  enabled?: boolean;
   color?: string;
   onPress: () => void;
+  loading?: boolean;
 }
 
-export const Button: React.FC<ButtonProps> = ({ title, color, ...rest }) => {
+export const Button: React.FC<ButtonProps> = ({
+  title,
+  color,
+  enabled = true,
+  loading = false,
+  ...rest
+}) => {
+  const theme = useTheme();
   return (
-    <Container {...rest} color={color}>
-      <Title>{title}</Title>
+    <Container {...rest} color={color} enabled={enabled} loading={loading}>
+      {loading ? (
+        <Load color={theme.colors.shape} size={10} />
+      ) : (
+        <Title>{title}</Title>
+      )}
     </Container>
   );
 };
