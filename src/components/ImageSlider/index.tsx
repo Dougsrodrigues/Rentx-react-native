@@ -9,10 +9,12 @@ import {
 } from "./styles";
 
 interface ImageSliderProps {
-  imageUrl: string[];
+  imageUrl?: string[] | null;
 }
 
 export const ImageSlider: React.FC<ImageSliderProps> = ({ imageUrl }) => {
+  if (!imageUrl) return <></>;
+
   return (
     <Container>
       <ImageIndexes>

@@ -16,15 +16,17 @@ import {
 } from "./styles";
 import { CarDTO } from "../../dtos/CarDTO";
 import { Load } from "../../components/Load";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { StackRoutesParams } from "../../routes/stack.routes";
+import { useNavigationHooks } from "../../hooks/NavigationHooks";
 
 export const Home: React.FC = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigationHooks();
   const [cars, setCars] = useState<CarDTO[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const handleCarDetails = () => {
-    navigation.navigate("CarDetails" as never);
-  };
+  const handleCarDetails = (car: CarDTO) =>
+    navigation.navigate("CarDetails", { car });
 
   useLayoutEffect(() => {
     const fetchCars = async () => {
@@ -47,7 +49,7 @@ export const Home: React.FC = () => {
         keyExtractor={(item) => String(item.id)}
         data={cars}
         renderItem={({ item }) => (
-          <CarCard data={item} onPress={handleCarDetails} />
+          <CarCard data={item} onPress={() => handleCarDetails(item)} />
         )}
       />
     ),

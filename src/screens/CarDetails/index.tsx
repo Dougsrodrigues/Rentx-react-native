@@ -19,20 +19,27 @@ import {
   Footer,
 } from "./styles";
 
-import SpeedSvg from "../../assets/speed.svg";
-import AccelerationSvg from "../../assets/acceleration.svg";
-import ForceSvg from "../../assets/force.svg";
-import GasolineSvg from "../../assets/gasoline.svg";
-import ExchangeSvg from "../../assets/exchange.svg";
-import PeopleSvg from "../../assets/people.svg";
 import { Button } from "../../components/Button";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigationHooks } from "../../hooks/NavigationHooks";
+import { useRoute } from "@react-navigation/native";
+import { StackRoutesParamList } from "../../routes/stack.routes";
+import { CarDTO } from "../../dtos/CarDTO";
+import { getAccessoryIcon } from "../../utils/getAccessory";
+
+export const useCar = () => {
+  const {
+    params: { car },
+  } = useRoute<StackRoutesParamList<"CarDetails">>();
+  return car as CarDTO;
+};
 
 export const CarDetails: React.FC = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigationHooks();
+
+  const car = useCar();
 
   const handleConfirmRental = () => {
-    navigation.navigate("Scheduling" as never);
+    navigation.navigate("Scheduling", { car });
   };
 
   const handleBackNavigator = () => {
@@ -46,40 +53,33 @@ export const CarDetails: React.FC = () => {
       </Header>
 
       <CarImages>
-        <ImageSlider
-          imageUrl={[
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQW4ivWJhEM56Hb89IVzJXjei87nIgvCeOpYt2RomEiAW9wfPfOZVjU0s4hF9Fnx3XmIw8&usqp=CAU",
-          ]}
-        />
+        <ImageSlider imageUrl={car.photos} />
       </CarImages>
 
       <Content>
         <Details>
           <Description>
-            <Brand>Lamborghini</Brand>
-            <Name>Huracan</Name>
+            <Brand>{car.brand}</Brand>
+            <Name>{car.name}</Name>
           </Description>
           <Rent>
-            <Period>Ao dia</Period>
-            <Price>R$ 580</Price>
+            <Period>{car.rent.period}</Period>
+            <Price>R$ {car.rent.price}</Price>
           </Rent>
         </Details>
 
         <Accessories>
-          <Accessory name="380km/h" icon={SpeedSvg} />
-          <Accessory name="3.2s" icon={AccelerationSvg} />
-          <Accessory name="800 HP" icon={ForceSvg} />
-          <Accessory name="Gasolina" icon={GasolineSvg} />
-          <Accessory name="Auto" icon={ExchangeSvg} />
-          <Accessory name="2 pessoas" icon={PeopleSvg} />
+          {car?.accessories &&
+            car.accessories.map((accessory) => (
+              <Accessory
+                name={accessory.name}
+                icon={getAccessoryIcon(accessory.type)}
+                key={accessory.type}
+              />
+            ))}
         </Accessories>
 
-        <About>
-          lorem ipsum dolor sit amet,lorem ipsum dolor sit amet ,lorem ipsum
-          dolor sit amet,lorem ipsum dolor sit amet ,lorem ipsum dolor sit
-          amet,lorem ipsum dolor sit amet ,lorem ipsum dolor sit amet,lorem
-          ipsum dolor sit amet
-        </About>
+        <About>{car.about}</About>
       </Content>
       <Footer>
         <Button

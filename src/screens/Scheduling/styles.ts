@@ -1,10 +1,6 @@
 import { RFValue } from "react-native-responsive-fontsize";
 import { SafeAreaView } from "react-native-safe-area-context";
-import styled, { css } from "styled-components/native";
-
-interface DateValueProps {
-  selected: boolean;
-}
+import styled from "styled-components/native";
 
 export const Container = styled.View`
   flex: 1;
@@ -50,18 +46,10 @@ export const DateInfo = styled.View`
   width: 30%;
 `;
 
-export const DateValue = styled.Text<DateValueProps>`
+export const DateValue = styled.Text`
   color: ${({ theme }) => theme.colors.shape};
   font-family: ${({ theme }) => theme.fonts.primary_500};
   font-size: ${RFValue(15)}px;
-
-  ${({ theme, selected }) =>
-    !selected &&
-    css`
-      border-bottom-width: 1px;
-      border-bottom-color: ${theme.colors.text};
-      padding-bottom: 5px;
-    `}
 `;
 
 export const Content = styled.ScrollView.attrs({
