@@ -24,7 +24,8 @@ import {
   CarFooterPeriod,
   CarFooterDate,
 } from "./styles";
-import { Load } from "../../components/Load";
+
+import { LoadAnimation } from "../../components/LoadAnimation";
 
 export interface CarProps {
   id: string;
@@ -111,7 +112,7 @@ export const MyCars: React.FC = () => {
           <AppointmentTitle>Agendamentos feitos</AppointmentTitle>
           <AppointmentQuantity>{cars.length}</AppointmentQuantity>
         </Appointments>
-        {loading ? <Load /> : cardListMemo}
+        {loading ? <LoadAnimation /> : cardListMemo}
       </Content>
     </Container>
   );

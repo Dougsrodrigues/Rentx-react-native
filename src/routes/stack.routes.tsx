@@ -11,8 +11,10 @@ import { SchedulingComplete } from "../screens/SchedulingComplete";
 import { CarDTO } from "../dtos/CarDTO";
 import { RouteProp } from "@react-navigation/native";
 import { MyCars } from "../screens/MyCars";
+import { Splash } from "../screens/Splash";
 
 export type StackRoutesParams = {
+  Splash: undefined;
   Home: undefined;
   CarDetails: { car: CarDTO };
   Scheduling: { car: CarDTO };
@@ -33,8 +35,16 @@ export type StackRoutesParamList<T extends keyof StackRoutesParams> = RouteProp<
 
 export function StackRoutes() {
   return (
-    <Screen.Navigator screenOptions={{ headerShown: false }}>
-      <Screen.Screen name="Home" component={Home} />
+    <Screen.Navigator
+      screenOptions={{ headerShown: false }}
+      initialRouteName="Splash"
+    >
+      <Screen.Screen name="Splash" component={Splash} />
+      <Screen.Screen
+        name="Home"
+        component={Home}
+        options={{ gestureEnabled: false }}
+      />
       <Screen.Screen name="CarDetails" component={CarDetails} />
       <Screen.Screen name="Scheduling" component={Scheduling} />
       <Screen.Screen name="SchedulingDetails" component={SchedulingDetails} />
