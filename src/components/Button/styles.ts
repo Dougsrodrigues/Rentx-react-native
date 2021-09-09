@@ -8,10 +8,16 @@ interface ContainerButtonProps extends RectButtonProps {
   loading?: boolean;
 }
 
+interface ButtonTextPros {
+  light?: boolean;
+}
+
 export const Container = styled(RectButton)<ContainerButtonProps>`
   width: 100%;
 
   padding: 19px;
+
+  margin-bottom: 8px;
 
   align-items: center;
   justify-content: center;
@@ -25,8 +31,9 @@ export const Container = styled(RectButton)<ContainerButtonProps>`
       opacity: 0.5;
     `}
 `;
-export const Title = styled.Text`
+export const Title = styled.Text<ButtonTextPros>`
   font-family: ${({ theme }) => theme.fonts.primary_500};
   font-size: ${RFValue(15)}px;
-  color: ${({ theme }) => theme.colors.shape};
+  color: ${({ theme, light }) =>
+    light ? theme.colors.header : theme.colors.shape};
 `;

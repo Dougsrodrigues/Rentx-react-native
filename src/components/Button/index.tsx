@@ -10,6 +10,7 @@ interface ButtonProps {
   color?: string;
   onPress: () => void;
   loading?: boolean;
+  light?: boolean;
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -17,6 +18,7 @@ export const Button: React.FC<ButtonProps> = ({
   color,
   enabled = true,
   loading = false,
+  light = false,
   ...rest
 }) => {
   const theme = useTheme();
@@ -25,7 +27,7 @@ export const Button: React.FC<ButtonProps> = ({
       {loading ? (
         <Load color={theme.colors.shape} size={10} />
       ) : (
-        <Title>{title}</Title>
+        <Title light={light}>{title}</Title>
       )}
     </Container>
   );
