@@ -13,7 +13,6 @@ import { Input } from "../../components/Input";
 import { PasswordInput } from "../../components/PasswordInput";
 
 import { Container, Header, Title, Form, SubTitle, Footer } from "./styles";
-import schema from "yup/lib/schema";
 
 export const SignIn: React.FC = () => {
   const theme = useTheme();
