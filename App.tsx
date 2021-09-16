@@ -1,6 +1,5 @@
 import React from "react";
 
-import { SafeAreaProvider } from "react-native-safe-area-context";
 import {
   useFonts,
   Inter_400Regular,
@@ -18,6 +17,7 @@ import { ThemeProvider } from "styled-components";
 
 import theme from "./src/styles/theme";
 import { Routes } from "./src/routes";
+import { AppProvider } from "./src/hooks/index";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -34,9 +34,9 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <SafeAreaProvider>
+      <AppProvider>
         <Routes />
-      </SafeAreaProvider>
+      </AppProvider>
     </ThemeProvider>
   );
 }

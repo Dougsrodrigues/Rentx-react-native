@@ -3,17 +3,21 @@ export interface CarDTO {
   brand: string;
   name: string;
   about: string;
-  rent: Rent;
+  period: string;
+  price: number;
   fuel_type: string;
   thumbnail: string;
   accessories?: AccessoriesEntity[] | null;
-  photos?: string[] | null;
+  photos?: PhotosEntity[] | null;
 }
-export interface Rent {
-  period: string;
-  price: number;
-}
+
 export interface AccessoriesEntity {
+  id: string;
   type: string;
   name: string;
+}
+
+export interface PhotosEntity {
+  id: string;
+  photo: string;
 }

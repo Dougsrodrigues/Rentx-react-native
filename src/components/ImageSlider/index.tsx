@@ -1,5 +1,7 @@
 import React, { useRef, useState } from "react";
 import { FlatList, ViewToken } from "react-native";
+import { PhotosEntity } from "../../dtos/CarDTO";
+import { Bullet } from "../Bullet";
 import {
   Container,
   ImageIndexes,
@@ -9,7 +11,7 @@ import {
 } from "./styles";
 
 interface ImageSliderProps {
-  imageUrl?: string[] | null;
+  imageUrl?: PhotosEntity[] | null;
 }
 
 interface ChangeImageProps {
@@ -31,8 +33,8 @@ export const ImageSlider: React.FC<ImageSliderProps> = ({ imageUrl }) => {
   return (
     <Container>
       <ImageIndexes>
-        {imageUrl.map((_, index) => (
-          <ImageIndex active={index === imageIndex} key={String(index)} />
+        {imageUrl.map((item, index) => (
+          <Bullet active={index === imageIndex} key={String(item.id)} />
         ))}
       </ImageIndexes>
 
@@ -41,10 +43,10 @@ export const ImageSlider: React.FC<ImageSliderProps> = ({ imageUrl }) => {
         onViewableItemsChanged={indexChange.current}
         showsHorizontalScrollIndicator={false}
         data={imageUrl}
-        keyExtractor={(key) => key}
+        keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <CarImageWrapper>
-            <CarImage source={{ uri: item }} resizeMode="contain" />
+            <CarImage source={{ uri: item.photo }} resizeMode="contain" />
           </CarImageWrapper>
         )}
       />

@@ -13,9 +13,13 @@ import { Input } from "../../components/Input";
 import { PasswordInput } from "../../components/PasswordInput";
 
 import { Container, Header, Title, Form, SubTitle, Footer } from "./styles";
+import { useNavigationHooks } from "../../hooks/NavigationHooks";
+import { useAuth } from "../../hooks/Auth";
 
 export const SignIn: React.FC = () => {
   const theme = useTheme();
+  const navigation = useNavigationHooks();
+  const { signIn } = useAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -30,6 +34,8 @@ export const SignIn: React.FC = () => {
       });
 
       await schema.validate({ email, password });
+
+      signIn({ email, password });
     } catch (error) {
       if (error instanceof Yup.ValidationError) {
         return Alert.alert("Opa", error.message);
@@ -39,6 +45,10 @@ export const SignIn: React.FC = () => {
         "Ocorreu um erro ao fazer login, verifique as credenciais"
       );
     }
+  }
+
+  function handleNewAccount() {
+    navigation.navigate("SignUpFirstStep");
   }
 
   return (
@@ -88,7 +98,7 @@ export const SignIn: React.FC = () => {
               light
               color={theme.colors.background_secondary}
               title="Criar conta gratuita"
-              onPress={() => {}}
+              onPress={handleNewAccount}
               enabled={true}
               loading={false}
             />

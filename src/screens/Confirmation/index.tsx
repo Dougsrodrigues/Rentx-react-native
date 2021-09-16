@@ -1,19 +1,30 @@
 import React from "react";
 import { StatusBar, useWindowDimensions } from "react-native";
 
+import { useRoute } from "@react-navigation/core";
 import { Container, Content, Title, Message, Footer } from "./styles";
 
 import LogoSvg from "../../assets/logo_background_gray.svg";
 import DoneSvg from "../../assets/done.svg";
 import { ConfirmButton } from "../../components/ConfirmButton";
 import { useNavigation } from "@react-navigation/native";
+import { StackRoutesParamList } from "../../routes/stack.routes";
 
-export const SchedulingComplete: React.FC = () => {
+export const useConfirmationParams = () => {
+  const {
+    params: { title, message, nextScreenRoute },
+  } = useRoute<StackRoutesParamList<"Confirmation">>();
+  return { title, message, nextScreenRoute };
+};
+
+export const Confirmation: React.FC = () => {
   const { width } = useWindowDimensions();
   const navigation = useNavigation();
 
+  const { title, message, nextScreenRoute } = useConfirmationParams();
+
   const handleConfirmRental = () => {
-    navigation.navigate("Home" as never);
+    navigation.navigate(nextScreenRoute as never);
   };
 
   return (
@@ -28,11 +39,9 @@ export const SchedulingComplete: React.FC = () => {
 
       <Content>
         <DoneSvg width={80} height={80} />
-        <Title>Carro Alugado</Title>
+        <Title>{title}</Title>
 
-        <Message>
-          Agora você so precisa ir {"\n"} até a concessonaria da RENTX
-        </Message>
+        <Message>{message}</Message>
       </Content>
 
       <Footer>

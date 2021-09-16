@@ -93,7 +93,11 @@ export const SchedulingDetails: React.FC = () => {
       }),
     ])
       .then(() => {
-        navigation.navigate("SchedulingComplete" as never);
+        navigation.navigate("Confirmation", {
+          title: "Carro alugado!",
+          message: `Agora você só precisa ir\naté a concessionária da RENTX\npegar seu automóvel`,
+          nextScreenRoute: "Home",
+        });
       })
       .catch(() => {
         Alert.alert("Não foi possível agendar.");

@@ -15,11 +15,14 @@ import Animated, {
 
 import { Container } from "./styles";
 import { useNavigationHooks } from "../../hooks/NavigationHooks";
+import { useNavigation } from "@react-navigation/native";
+import { useAuth } from "../../hooks/Auth";
 
 export const Splash: React.FC = () => {
+  const { user } = useAuth();
   const splashAnimation = useSharedValue(0);
 
-  const navigation = useNavigationHooks();
+  const navigation = useNavigation();
 
   const brandStyle = useAnimatedStyle(() => {
     return {
@@ -54,7 +57,11 @@ export const Splash: React.FC = () => {
   });
 
   const startApp = () => {
-    navigation.navigate("Home");
+    console.log({ user });
+    if (!user) {
+      return navigation.navigate("SignIn" as never);
+    }
+    return navigation.navigate("Home" as never);
   };
 
   useEffect(() => {
